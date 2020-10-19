@@ -59,13 +59,16 @@ self.addEventListener('fetch', (event) => {
     // old if statement: (event.request.url.startsWith(self.location.origin))
 
     if (event.request.method === "GET") {
+        // use cache first for all other requests for performance - 
+        //took this out because wasn't showing new transactions when back online
         event.respondWith(
             caches.match(event.request).then((cachedResponse) => {
                 if (cachedResponse) {
                     console.log(cachedResponse)
                     // return cachedResponse;
                 }
-
+                // request is not in cache. make network request and cache the response
+                // now it always makes the network request
                 return caches.open(RUNTIME).then((cache) => {
                     return fetch(event.request).then((response) => {
                         return cache.put(event.request, response.clone()).then(() => {
