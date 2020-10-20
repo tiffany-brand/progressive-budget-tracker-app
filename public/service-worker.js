@@ -49,36 +49,71 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     // non GET requests are not cached and requests to other origins are not cached
-    if (
-        event.request.method !== "GET"
-    ) {
+    if (event.request.method !== "GET") {
         event.respondWith(fetch(event.request));
+        return;
+    } else if (event.request.url) {
+        // hold this .includes("/api/")
+        event.respondWith(
+            caches.open(RUNTIME).then(cache => {
+                return fetch(event.request)
+                    .then(response => {
+                        // If the response was good, clone it and store it in the cache.
+                        if (response.status === 200) {
+                            cache.put(event.request.url, response.clone());
+                        }
+
+                        return response;
+                    })
+                    .catch(err => {
+                        // Network request failed, try to get it from the cache.
+                        return cache.match(event.request);
+                    });
+            }).catch(err => console.log(err))
+        );
+
         return;
     }
 
+
+
+
+
+
+
+
     // old if statement: (event.request.url.startsWith(self.location.origin))
 
-    if (event.request.method === "GET") {
-        // use cache first for all other requests for performance - 
-        //took this out because wasn't showing new transactions when back online
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                if (cachedResponse) {
-                    console.log(cachedResponse)
-                    // return cachedResponse;
-                }
-                // request is not in cache. make network request and cache the response
-                // now it always makes the network request
-                return caches.open(RUNTIME).then((cache) => {
-                    return fetch(event.request).then((response) => {
-                        return cache.put(event.request, response.clone()).then(() => {
-                            return response;
-                        });
-                    });
-                });
-            })
-        );
-    }
+    // if (event.request.method === "GET") {
+    //     // use cache first for all other requests for performance - 
+    //     //?? Not showing new transactions when back online
+    //     event.respondWith(
+    //         fetch(event.request).then(function () {
+    //             console.log("in dot then");
+
+
+
+    //         }).catch(function () {
+    //             console.log("in dot catch");
+
+    //             caches.match(event.request).then((cachedResponse) => {
+    //                 if (cachedResponse) {
+    //                     console.log(cachedResponse)
+    //                     return cachedResponse;
+    //                 }
+    //                 // request is not in cache. make network request and cache the response
+    //                 // now it always makes the network request
+    //                 return caches.open(RUNTIME).then((cache) => {
+    //                     return fetch(event.request).then((response) => {
+    //                         return cache.put(event.request, response.clone()).then(() => {
+    //                             return response;
+    //                         });
+    //                     });
+    //                 });
+    //             })
+    //         })
+    //     );
+    // }
 });
 
 
