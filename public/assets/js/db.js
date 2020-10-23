@@ -31,7 +31,7 @@ function saveRecord(record) {
     // add record to your store with add method.
     const transaction = db.transaction(["pending"], "readwrite");
     const pendingStore = transaction.objectStore("pending");
-    console.log("in saveRecord");
+    console.log("Offline - Saving Transaction in IndexedDB");
     console.log(record);
     pendingStore.add(record);
 }
@@ -62,7 +62,7 @@ function checkDatabase() {
                     // clear all items in your store
                     const transaction = db.transaction(["pending"], "readwrite");
                     const pendingStore = transaction.objectStore("pending");
-                    console.log("clearing indexedDB");
+                    console.log("Online - Post Transactions and Clear IndexedDB");
                     pendingStore.clear();
 
                 });
