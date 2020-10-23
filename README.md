@@ -26,7 +26,9 @@ SO THAT my account balance is accurate when I am traveling
 
 [Progressive Budget Tracker Application](https://pro-budget-tracker.herokuapp.com/)
 
-## Screenshots
+## Screenshots and Demo
+
+![Pro-Budget-Tracker-Demo-sm](https://user-images.githubusercontent.com/16748389/97020282-5ccc6280-151f-11eb-867c-aa56c995dc90.gif)
 
 ![ProBudgetTracker](https://user-images.githubusercontent.com/16748389/97012472-df502480-1515-11eb-85bc-c9ed8aae8a74.JPG)
 
