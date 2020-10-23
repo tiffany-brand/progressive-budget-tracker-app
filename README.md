@@ -1,5 +1,7 @@
 # Progressive Budget Tracker Application
 
+[![License: MIT](https://img.shields.io/github/license/tiffany-brand/progressive-budget-tracker-app?style=plastic)](./LICENSE)
+
 ## Table of Contents
 
 * [Description](#description)
@@ -12,7 +14,7 @@
 * [Questions](#questions)
 
 ## Description
-This application allows a user to track funds in a budget by entering transactions. It uses progressive web applicaton technology to provide functionality while offline - transactions are able to be entered and saved and post to the database when the app returns to an online state. 
+This application allows a user to track funds in a budget by entering transactions. It uses progressive web applicaton technology to provide functionality while offline - transactions are able to be entered and saved and post to the database when the app returns to an online state. Starter code with initial design and functionality provided by Trilogy Education.
 
 ### User Story
 
@@ -55,6 +57,11 @@ After downloading the files and installing dependencies, run
 `
 node server.js
 `
+
+## License
+
+This repository is licensed under the [MIT license](./LICENSE).
+
 ## Questions
 
 Questions about this repository? Please contact me at [tiffanylbrand@outlook.com](mailto:tiffanylbrand@outlook.com). View more of my work in GitHub at [tiffany-brand](https://github.com/tiffany-brand) 
