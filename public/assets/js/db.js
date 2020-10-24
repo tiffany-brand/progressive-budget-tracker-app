@@ -27,8 +27,8 @@ request.onerror = function (event) {
 
 function saveRecord(record) {
     // create a transaction on the pending db with readwrite access
-    // access your pending object store
-    // add record to your store with add method.
+    // access the pending object store
+    // add record to the store with add method.
     const transaction = db.transaction(["pending"], "readwrite");
     const pendingStore = transaction.objectStore("pending");
     console.log("Offline - Saving Transaction in IndexedDB");
@@ -37,14 +37,15 @@ function saveRecord(record) {
 }
 
 function checkDatabase() {
-    // open a transaction on your pending db
-    // access your pending object store
+    // open a transaction on the pending db
+    // access the pending object store
     // get all records from store and set to a variable
     const transaction = db.transaction(["pending"], "readwrite");
     const pendingStore = transaction.objectStore("pending");
 
     const getAll = pendingStore.getAll();
 
+    // post transations stored while offline to the database when online access is restured
     getAll.onsuccess = function () {
         if (getAll.result.length > 0) {
             fetch('/api/transaction/bulk', {
@@ -57,9 +58,9 @@ function checkDatabase() {
             })
                 .then((response) => response.json())
                 .then(() => {
-                    // if successful, open a transaction on your pending db
-                    // access your pending object store
-                    // clear all items in your store
+                    // if successful, open a transaction on the pending db
+                    // access the pending object store
+                    // clear all items in the store
                     const transaction = db.transaction(["pending"], "readwrite");
                     const pendingStore = transaction.objectStore("pending");
                     console.log("Online - Post Transactions and Clear IndexedDB");

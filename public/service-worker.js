@@ -51,12 +51,12 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-    // non GET requests are not cached 
+    // POST requests are not cached 
     if (event.request.method !== "GET") {
-        event.respondWith(fetch(event.request));
+        event.respondWith(fetch(event.request).catch(err => console.log(err)));
         return;
     } else if (event.request.url) {
-        // cache GET requests
+        // cache GET requests, including outside resources like font-awesome and chart.js
         event.respondWith(
             caches.open(RUNTIME).then(cache => {
                 return fetch(event.request)
