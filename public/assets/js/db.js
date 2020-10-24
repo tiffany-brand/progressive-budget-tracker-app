@@ -25,6 +25,7 @@ request.onerror = function (event) {
     console.log(request.errorCode);
 };
 
+// save transactions to indexed DB when offline
 function saveRecord(record) {
     // create a transaction on the pending db with readwrite access
     // access the pending object store
